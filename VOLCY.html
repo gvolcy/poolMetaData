@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google" content="notranslate">
+    <meta name="darkreader" instance="disabled">
+    <meta name="description" content="Cardano blockchain real-time visualization">
+    <link rel="shortcut icon" size="16x16, 32x32, 48x48, 64x64, 128x128, 256x256" href="https://pool.pm/favicon.ico">
+    <title>VOLCY</title>
+    <script src="./VOLCY_files/elm.js.download"></script><script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script>
+    <script type="module" src="./VOLCY_files/model-viewer.min.js.download"></script>
+    <style>
+      /*@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@800&display=swap');*/
+      /* montserrat-800 - latin */
+      @font-face {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 800;
+        src: local(''), url('../fonts/montserrat-v15-latin-800.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+      }
+      /* inter-300 - latin */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 300;
+        src: local(''),
+             url('../fonts/inter-v3-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+             url('../fonts/inter-v3-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+      /* inter-regular - latin */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        src: local(''),
+             url('../fonts/inter-v3-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+             url('../fonts/inter-v3-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+      /* inter-500 - latin */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        src: local(''),
+             url('../fonts/inter-v3-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+             url('../fonts/inter-v3-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+      /* inter-600 - latin */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        src: local(''),
+             url('../fonts/inter-v3-latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+             url('../fonts/inter-v3-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+      /* inter-700 - latin */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        src: local(''),
+             url('../fonts/inter-v3-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+             url('../fonts/inter-v3-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+
+      body { overflow-y: scroll }
+
+      /* elm-ui work-arounds */
+      input[type=range]::-moz-range-progress {
+        cursor: pointer;
+      }
+      input[type=range]::-moz-range-thumb {
+        cursor: pointer;
+      }
+      div[reverse-wrapped-row="true"] > div.r.wrp {
+          flex-direction: row-reverse;
+          flex-wrap: wrap-reverse;
+      }
+      /* Work around https://github.com/mdgriffith/elm-ui/issues/57 */
+      div[force-justify-content-center="true"] {
+          justify-content: center !important;
+      }
+      div[force-justify-content-center="true"] > div.r.wrp {
+          justify-content: center !important;
+      }
+      model-viewer {
+        --poster-color: transparent;
+      }
+      model-viewer::part(default-progress-bar) {
+        background-color: #424242;
+      }
+    </style>
+  </head>
+  <body><div class="fc-0-0-0-255 font-size-20 ff-intersans-serif w4 cp bg-249-249-249-255 s e ui s e"><div><style>@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {.s.r > .s { flex-basis: auto !important; } .s.r > .s.ctr { flex-basis: auto !important; }}
+input[type="search"],
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+input[type=range] {
+  -webkit-appearance: none; 
+  background: transparent;
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:10;
+  width: 100%;
+  outline: dashed 1px;
+  height: 100%;
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-ms-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-moz-range-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-ms-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range][orient=vertical]{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical;  /* WebKit */
+}
+
+.explain {
+    border: 6px solid rgb(174, 121, 15) !important;
+}
+.explain > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+.ctr {
+    border: none !important;
+}
+.explain > .ctr > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s.e.ic.hf > img{max-height:100%;object-fit:cover;}.s.e.ic.wf > img{max-width:100%;object-fit:cover;}.s:focus{outline:none;}.ui{width:100%;height:auto;min-height:100%;z-index:0;}.ui.s.hf{height:100%;}.ui.s.hf > .hf{height:100%;}.ui > .fr.nb{position:fixed;z-index:20;}.nb{position:relative;border:none;display:flex;flex-direction:row;flex-basis:auto;}.nb.e{display:flex;flex-direction:column;white-space:pre;}.nb.e.hbh{z-index:0;}.nb.e.hbh > .bh{z-index:-1;}.nb.e.sbt > .t.hf{flex-grow:0;}.nb.e.sbt > .t.wf{align-self:auto !important;}.nb.e > .hc{height:auto;}.nb.e > .hf{flex-grow:100000;}.nb.e > .wf{width:100%;}.nb.e > .wfp{width:100%;}.nb.e > .wc{align-self:flex-start;}.nb.e.ct{justify-content:flex-start;}.nb.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.nb.e.cb{justify-content:flex-end;}.nb.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.nb.e.cr{align-items:flex-end;}.nb.e > .s.ar{align-self:flex-end;}.nb.e.cl{align-items:flex-start;}.nb.e > .s.al{align-self:flex-start;}.nb.e.ccx{align-items:center;}.nb.e > .s.cx{align-self:center;}.nb.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.nb.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.nb.a{position:absolute;bottom:100%;left:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.a > .hf{height:auto;}.nb.a > .wf{width:100%;}.nb.a > *{pointer-events:auto;}.nb.b{position:absolute;bottom:0;left:0;height:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.b > *{pointer-events:auto;}.nb.b > .hf{height:auto;}.nb.or{position:absolute;left:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.or > *{pointer-events:auto;}.nb.ol{position:absolute;right:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.ol > *{pointer-events:auto;}.nb.fr{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;pointer-events:none;}.nb.fr > *{pointer-events:auto;}.nb.bh{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;z-index:0;pointer-events:none;}.nb.bh > *{pointer-events:auto;}.s{position:relative;border:none;flex-shrink:0;display:flex;flex-direction:row;flex-basis:auto;resize:none;font-feature-settings:inherit;box-sizing:border-box;margin:0;padding:0;border-width:0;border-style:solid;font-size:inherit;color:inherit;font-family:inherit;line-height:1;font-weight:inherit;text-decoration:none;font-style:inherit;}.s.wrp{flex-wrap:wrap;}.s.notxt{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;}.s.cptr{cursor:pointer;}.s.ctxt{cursor:text;}.s.ppe{pointer-events:none !important;}.s.cpe{pointer-events:auto !important;}.s.clr{opacity:0;}.s.oq{opacity:1;}.s.hvclr:hover{opacity:0;}.s.hvoq:hover{opacity:1;}.s.fcsclr:focus{opacity:0;}.s.fcsoq:focus{opacity:1;}.s.atvclr:active{opacity:0;}.s.atvoq:active{opacity:1;}.s.ts{transition:transform 160ms, opacity 160ms, filter 160ms, background-color 160ms, color 160ms, font-size 160ms;}.s.sb{overflow:auto;flex-shrink:1;}.s.sbx{overflow-x:auto;}.s.sbx.r{flex-shrink:1;}.s.sby{overflow-y:auto;}.s.sby.c{flex-shrink:1;}.s.sby.e{flex-shrink:1;}.s.cp{overflow:hidden;}.s.cpx{overflow-x:hidden;}.s.cpy{overflow-y:hidden;}.s.wc{width:auto;}.s.bn{border-width:0;}.s.bd{border-style:dashed;}.s.bdt{border-style:dotted;}.s.bs{border-style:solid;}.s.t{white-space:pre;display:inline-block;}.s.it{line-height:1.05;background:transparent;text-align:inherit;}.s.e{display:flex;flex-direction:column;white-space:pre;}.s.e.hbh{z-index:0;}.s.e.hbh > .bh{z-index:-1;}.s.e.sbt > .t.hf{flex-grow:0;}.s.e.sbt > .t.wf{align-self:auto !important;}.s.e > .hc{height:auto;}.s.e > .hf{flex-grow:100000;}.s.e > .wf{width:100%;}.s.e > .wfp{width:100%;}.s.e > .wc{align-self:flex-start;}.s.e.ct{justify-content:flex-start;}.s.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.s.e.cb{justify-content:flex-end;}.s.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.s.e.cr{align-items:flex-end;}.s.e > .s.ar{align-self:flex-end;}.s.e.cl{align-items:flex-start;}.s.e > .s.al{align-self:flex-start;}.s.e.ccx{align-items:center;}.s.e > .s.cx{align-self:center;}.s.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.s.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r{display:flex;flex-direction:row;}.s.r > .s{flex-basis:0%;}.s.r > .s.we{flex-basis:auto;}.s.r > .s.lnk{flex-basis:auto;}.s.r > .hf{align-self:stretch !important;}.s.r > .hfp{align-self:stretch !important;}.s.r > .wf{flex-grow:100000;}.s.r > .ctr{flex-grow:0;flex-basis:auto;align-self:stretch;}.s.r > u:first-of-type.acr{flex-grow:1;}.s.r > s:first-of-type.accx{flex-grow:1;}.s.r > s:first-of-type.accx > .cx{margin-left:auto !important;}.s.r > s:last-of-type.accx{flex-grow:1;}.s.r > s:last-of-type.accx > .cx{margin-right:auto !important;}.s.r > s:only-of-type.accx{flex-grow:1;}.s.r > s:only-of-type.accx > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r > s:last-of-type.accx ~ u{flex-grow:0;}.s.r > u:first-of-type.acr ~ s.accx{flex-grow:0;}.s.r.ct{align-items:flex-start;}.s.r > .s.at{align-self:flex-start;}.s.r.cb{align-items:flex-end;}.s.r > .s.ab{align-self:flex-end;}.s.r.cr{justify-content:flex-end;}.s.r.cl{justify-content:flex-start;}.s.r.ccx{justify-content:center;}.s.r.ccy{align-items:center;}.s.r > .s.cy{align-self:center;}.s.r.sev{justify-content:space-between;}.s.r.lbl{align-items:baseline;}.s.c{display:flex;flex-direction:column;}.s.c > .s{flex-basis:0px;min-height:min-content;}.s.c > .s.he{flex-basis:auto;}.s.c > .hf{flex-grow:100000;}.s.c > .wf{width:100%;}.s.c > .wfp{width:100%;}.s.c > .wc{align-self:flex-start;}.s.c > u:first-of-type.acb{flex-grow:1;}.s.c > s:first-of-type.accy{flex-grow:1;}.s.c > s:first-of-type.accy > .cy{margin-top:auto !important;margin-bottom:0 !important;}.s.c > s:last-of-type.accy{flex-grow:1;}.s.c > s:last-of-type.accy > .cy{margin-bottom:auto !important;margin-top:0 !important;}.s.c > s:only-of-type.accy{flex-grow:1;}.s.c > s:only-of-type.accy > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.c > s:last-of-type.accy ~ u{flex-grow:0;}.s.c > u:first-of-type.acb ~ s.accy{flex-grow:0;}.s.c.ct{justify-content:flex-start;}.s.c > .s.at{margin-bottom:auto;}.s.c.cb{justify-content:flex-end;}.s.c > .s.ab{margin-top:auto;}.s.c.cr{align-items:flex-end;}.s.c > .s.ar{align-self:flex-end;}.s.c.cl{align-items:flex-start;}.s.c > .s.al{align-self:flex-start;}.s.c.ccx{align-items:center;}.s.c > .s.cx{align-self:center;}.s.c.ccy{justify-content:center;}.s.c > .ctr{flex-grow:0;flex-basis:auto;width:100%;align-self:stretch !important;}.s.c.sev{justify-content:space-between;}.s.g{display:-ms-grid;}.s.g > .gp > .s{width:100%;}@supports (display:grid) {.s.g{display:grid;
+}}.s.g > .s.at{justify-content:flex-start;}.s.g > .s.ab{justify-content:flex-end;}.s.g > .s.ar{align-items:flex-end;}.s.g > .s.al{align-items:flex-start;}.s.g > .s.cx{align-items:center;}.s.g > .s.cy{justify-content:center;}.s.pg{display:block;}.s.pg > .s:first-child{margin:0 !important;}.s.pg > .s.al:first-child + .s{margin:0 !important;}.s.pg > .s.ar:first-child + .s{margin:0 !important;}.s.pg > .s.ar{float:right;}.s.pg > .s.ar::after{content:"";display:table;clear:both;}.s.pg > .s.al{float:left;}.s.pg > .s.al::after{content:"";display:table;clear:both;}.s.iml{white-space:pre-wrap !important;height:100%;width:100%;background-color:transparent;}.s.implw.e{flex-basis:auto;}.s.imlp{white-space:pre-wrap !important;cursor:text;}.s.imlp > .imlf{white-space:pre-wrap !important;color:transparent;}.s.p{display:block;white-space:normal;overflow-wrap:break-word;}.s.p.hbh{z-index:0;}.s.p.hbh > .bh{z-index:-1;}.s.p .t{display:inline;white-space:normal;}.s.p .p{display:inline;}.s.p .p::after{content:none;}.s.p .p::before{content:none;}.s.p .e{display:inline;white-space:normal;}.s.p .e.we{display:inline-block;}.s.p .e.fr{display:flex;}.s.p .e.bh{display:flex;}.s.p .e.a{display:flex;}.s.p .e.b{display:flex;}.s.p .e.or{display:flex;}.s.p .e.ol{display:flex;}.s.p .e > .t{display:inline;white-space:normal;}.s.p > .r{display:inline;}.s.p > .c{display:inline-flex;}.s.p > .g{display:inline-grid;}.s.p > .s.ar{float:right;}.s.p > .s.al{float:left;}.s.hidden{display:none;}.s.w1{font-weight:100;}.s.w2{font-weight:200;}.s.w3{font-weight:300;}.s.w4{font-weight:400;}.s.w5{font-weight:500;}.s.w6{font-weight:600;}.s.w7{font-weight:700;}.s.w8{font-weight:800;}.s.w9{font-weight:900;}.s.i{font-style:italic;}.s.sk{text-decoration:line-through;}.s.u{text-decoration:underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.u.sk{text-decoration:line-through underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.tun{font-style:normal;}.s.tj{text-align:justify;}.s.tja{text-align:justify-all;}.s.tc{text-align:center;}.s.tr{text-align:right;}.s.tl{text-align:left;}.s.modal{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;}.border-0{border-width:0px;}.border-1{border-width:1px;}.border-2{border-width:2px;}.border-3{border-width:3px;}.border-4{border-width:4px;}.border-5{border-width:5px;}.border-6{border-width:6px;}.font-size-8{font-size:8px;}.font-size-9{font-size:9px;}.font-size-10{font-size:10px;}.font-size-11{font-size:11px;}.font-size-12{font-size:12px;}.font-size-13{font-size:13px;}.font-size-14{font-size:14px;}.font-size-15{font-size:15px;}.font-size-16{font-size:16px;}.font-size-17{font-size:17px;}.font-size-18{font-size:18px;}.font-size-19{font-size:19px;}.font-size-20{font-size:20px;}.font-size-21{font-size:21px;}.font-size-22{font-size:22px;}.font-size-23{font-size:23px;}.font-size-24{font-size:24px;}.font-size-25{font-size:25px;}.font-size-26{font-size:26px;}.font-size-27{font-size:27px;}.font-size-28{font-size:28px;}.font-size-29{font-size:29px;}.font-size-30{font-size:30px;}.font-size-31{font-size:31px;}.font-size-32{font-size:32px;}.p-0{padding:0px;}.p-1{padding:1px;}.p-2{padding:2px;}.p-3{padding:3px;}.p-4{padding:4px;}.p-5{padding:5px;}.p-6{padding:6px;}.p-7{padding:7px;}.p-8{padding:8px;}.p-9{padding:9px;}.p-10{padding:10px;}.p-11{padding:11px;}.p-12{padding:12px;}.p-13{padding:13px;}.p-14{padding:14px;}.p-15{padding:15px;}.p-16{padding:16px;}.p-17{padding:17px;}.p-18{padding:18px;}.p-19{padding:19px;}.p-20{padding:20px;}.p-21{padding:21px;}.p-22{padding:22px;}.p-23{padding:23px;}.p-24{padding:24px;}.v-smcp{font-variant:small-caps;}.v-smcp-off{font-variant:normal;}.v-zero{font-feature-settings:"zero";}.v-zero-off{font-feature-settings:"zero" 0;}.v-onum{font-feature-settings:"onum";}.v-onum-off{font-feature-settings:"onum" 0;}.v-liga{font-feature-settings:"liga";}.v-liga-off{font-feature-settings:"liga" 0;}.v-dlig{font-feature-settings:"dlig";}.v-dlig-off{font-feature-settings:"dlig" 0;}.v-ordn{font-feature-settings:"ordn";}.v-ordn-off{font-feature-settings:"ordn" 0;}.v-tnum{font-feature-settings:"tnum";}.v-tnum-off{font-feature-settings:"tnum" 0;}.v-afrc{font-feature-settings:"afrc";}.v-afrc-off{font-feature-settings:"afrc" 0;}.v-frac{font-feature-settings:"frac";}.v-frac-off{font-feature-settings:"frac" 0;}</style></div><div><style>.ff-intersans-serif.cap, .ff-intersans-serif .cap {line-height: 1;} .ff-intersans-serif.cap> .t, .ff-intersans-serif .cap > .t {vertical-align: 0;line-height: 1;}.pad-32-0-8-0{
+  padding: 32px 0px 8px 0px;
+}.br-4{
+  border-radius: 4px;
+}.min-height-1{
+  min-height: 1px !important;
+}.min-width-1{
+  min-width: 1px;
+}.bg-3-169-244-255{
+  background-color: rgba(3,169,244,1);
+}.fc-178-235-242-255{
+  color: rgba(178,235,242,1);
+}.fc-255-236-179-255{
+  color: rgba(255,236,179,1);
+}.fc-178-223-219-255{
+  color: rgba(178,223,219,1);
+}.fc-255-235-59-255{
+  color: rgba(255,235,59,1);
+}.fc-213-0-0-255{
+  color: rgba(213,0,0,1);
+}.min-width-130{
+  min-width: 130px;
+}.spacing-32-32.r > .s + .s{
+  margin-left: 32px;
+}.spacing-32-32.wrp.r > .s{
+  margin: 16px 16px;
+}.spacing-32-32.c > .s + .s{
+  margin-top: 32px;
+}.spacing-32-32.pg > .s + .s{
+  margin-top: 32px;
+}.spacing-32-32.pg > .al{
+  margin-right: 32px;
+}.spacing-32-32.pg > .ar{
+  margin-left: 32px;
+}.spacing-32-32.p{
+  line-height: calc(1em + 32px);
+}textarea.s.spacing-32-32{
+  line-height: calc(1em + 32px);
+  height: calc(100% + 32px);
+}.spacing-32-32.p > .al{
+  margin-right: 32px;
+}.spacing-32-32.p > .ar{
+  margin-left: 32px;
+}.spacing-32-32.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -16px;
+}.spacing-32-32.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -16px;
+}.br-8{
+  border-radius: 8px;
+}.height-px-16px{
+  height : 16px;
+}.width-px-16{
+  width: 16px;
+}.width-px-2{
+  width: 2px;
+}.fc-66-66-66-255{
+  color: rgba(66,66,66,1);
+}.pad-0-0-8-0{
+  padding: 0px 0px 8px 0px;
+}.height-px-1px{
+  height : 1px;
+}.br-2{
+  border-radius: 2px;
+}.height-px-4px{
+  height : 4px;
+}.width-px-4{
+  width: 4px;
+}.mv-0-2040-0{
+  transform: translate3d(0px, 8px, 0px);
+}.s.r > .width-fill-10000{
+  flex-grow: 1000000000;
+}.bg-66-66-66-255{
+  background-color: rgba(66,66,66,1);
+}.br-6{
+  border-radius: 6px;
+}.height-px-12px{
+  height : 12px;
+}.width-px-12{
+  width: 12px;
+}.s.r > .width-fill-0{
+  flex-grow: 0;
+}input[type="range"].thmb-12px-12px::-ms-thumb{
+  width: 12px;
+  height: 12px;
+}input[type="range"].thmb-12px-12px::-webkit-slider-thumb{
+  width: 12px;
+  height: 12px;
+}input[type="range"].thmb-12px-12px::-moz-range-thumb{
+  width: 12px;
+  height: 12px;
+}.height-px-20px{
+  height : 20px;
+}.width-px-480{
+  width: 480px;
+}.spacing-384-384.r > .s + .s{
+  margin-left: 384px;
+}.spacing-384-384.wrp.r > .s{
+  margin: 192px 192px;
+}.spacing-384-384.c > .s + .s{
+  margin-top: 384px;
+}.spacing-384-384.pg > .s + .s{
+  margin-top: 384px;
+}.spacing-384-384.pg > .al{
+  margin-right: 384px;
+}.spacing-384-384.pg > .ar{
+  margin-left: 384px;
+}.spacing-384-384.p{
+  line-height: calc(1em + 384px);
+}textarea.s.spacing-384-384{
+  line-height: calc(1em + 384px);
+  height: calc(100% + 384px);
+}.spacing-384-384.p > .al{
+  margin-right: 384px;
+}.spacing-384-384.p > .ar{
+  margin-left: 384px;
+}.spacing-384-384.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -192px;
+}.spacing-384-384.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -192px;
+}.width-px-64{
+  width: 64px;
+}.spacing-2-2.r > .s + .s{
+  margin-left: 2px;
+}.spacing-2-2.wrp.r > .s{
+  margin: 1px 1px;
+}.spacing-2-2.c > .s + .s{
+  margin-top: 2px;
+}.spacing-2-2.pg > .s + .s{
+  margin-top: 2px;
+}.spacing-2-2.pg > .al{
+  margin-right: 2px;
+}.spacing-2-2.pg > .ar{
+  margin-left: 2px;
+}.spacing-2-2.p{
+  line-height: calc(1em + 2px);
+}textarea.s.spacing-2-2{
+  line-height: calc(1em + 2px);
+  height: calc(100% + 2px);
+}.spacing-2-2.p > .al{
+  margin-right: 2px;
+}.spacing-2-2.p > .ar{
+  margin-left: 2px;
+}.spacing-2-2.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -1px;
+}.spacing-2-2.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -1px;
+}.fc-233-30-99-255-hv:hover {
+  color: rgba(233,30,99,1);
+}.fc-179-229-252-255-hv:hover {
+  color: rgba(179,229,252,1);
+}.fc-158-158-158-255{
+  color: rgba(158,158,158,1);
+}.font-size-48{
+  font-size: 48px;
+}.fc-179-229-252-255{
+  color: rgba(179,229,252,1);
+}.fc-255-255-255-255-hv:hover {
+  color: rgba(255,255,255,1);
+}.spacing-16-16.r > .s + .s{
+  margin-left: 16px;
+}.spacing-16-16.wrp.r > .s{
+  margin: 8px 8px;
+}.spacing-16-16.c > .s + .s{
+  margin-top: 16px;
+}.spacing-16-16.pg > .s + .s{
+  margin-top: 16px;
+}.spacing-16-16.pg > .al{
+  margin-right: 16px;
+}.spacing-16-16.pg > .ar{
+  margin-left: 16px;
+}.spacing-16-16.p{
+  line-height: calc(1em + 16px);
+}textarea.s.spacing-16-16{
+  line-height: calc(1em + 16px);
+  height: calc(100% + 16px);
+}.spacing-16-16.p > .al{
+  margin-right: 16px;
+}.spacing-16-16.p > .ar{
+  margin-left: 16px;
+}.spacing-16-16.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -8px;
+}.spacing-16-16.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -8px;
+}.width-px-300{
+  width: 300px;
+}.height-px-32px{
+  height : 32px;
+}.width-px-32{
+  width: 32px;
+}.tfrm-0-0-0-255-255-255-0-0-255-0{
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotate3d(0, 0, 1, 0rad);
+}.bg-233-30-99-255{
+  background-color: rgba(233,30,99,1);
+}.box-0px0px0px0px255-255-255-255-act:active {
+  box-shadow: 0px 0px 0px 0px rgba(255,255,255,1);
+}.box-0px765px1530px0px0-0-0-82{
+  box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.32);
+}.br-24{
+  border-radius: 24px;
+}.height-px-48px{
+  height : 48px;
+}.width-px-48{
+  width: 48px;
+}.bg-156-39-176-255{
+  background-color: rgba(156,39,176,1);
+}.spacing-4-4.r > .s + .s{
+  margin-left: 4px;
+}.spacing-4-4.wrp.r > .s{
+  margin: 2px 2px;
+}.spacing-4-4.c > .s + .s{
+  margin-top: 4px;
+}.spacing-4-4.pg > .s + .s{
+  margin-top: 4px;
+}.spacing-4-4.pg > .al{
+  margin-right: 4px;
+}.spacing-4-4.pg > .ar{
+  margin-left: 4px;
+}.spacing-4-4.p{
+  line-height: calc(1em + 4px);
+}textarea.s.spacing-4-4{
+  line-height: calc(1em + 4px);
+  height: calc(100% + 4px);
+}.spacing-4-4.p > .al{
+  margin-right: 4px;
+}.spacing-4-4.p > .ar{
+  margin-left: 4px;
+}.spacing-4-4.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -2px;
+}.spacing-4-4.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -2px;
+}.pad-48-0-0-0{
+  padding: 48px 0px 0px 0px;
+}.fc-255-255-255-255{
+  color: rgba(255,255,255,1);
+}.br-800-8000-0{
+  border-radius: 800px 800px 0px 0px;
+}.bg-0-0-0-255{
+  background-color: rgba(0,0,0,1);
+}.pad-2-0-0-0{
+  padding: 2px 0px 0px 0px;
+}.spacing-8-8.r > .s + .s{
+  margin-left: 8px;
+}.spacing-8-8.wrp.r > .s{
+  margin: 4px 4px;
+}.spacing-8-8.c > .s + .s{
+  margin-top: 8px;
+}.spacing-8-8.pg > .s + .s{
+  margin-top: 8px;
+}.spacing-8-8.pg > .al{
+  margin-right: 8px;
+}.spacing-8-8.pg > .ar{
+  margin-left: 8px;
+}.spacing-8-8.p{
+  line-height: calc(1em + 8px);
+}textarea.s.spacing-8-8{
+  line-height: calc(1em + 8px);
+  height: calc(100% + 8px);
+}.spacing-8-8.p > .al{
+  margin-right: 8px;
+}.spacing-8-8.p > .ar{
+  margin-left: 8px;
+}.spacing-8-8.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -4px;
+}.spacing-8-8.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -4px;
+}.min-height-979{
+  min-height: 979px !important;
+}.bg-249-249-249-255{
+  background-color: rgba(249,249,249,1);
+}.ff-intersans-serif{
+  font-family: "Inter", sans-serif;
+  font-feature-settings: ;
+  font-variant: normal;
+}.fc-0-0-0-255{
+  color: rgba(0,0,0,1);
+}.focus-within:focus-within{
+  border-color: rgba(255,255,255,1);
+  outline: none;
+}.s:focus .focusable, .s.focusable:focus, .ui-slide-bar:focus + .s .focusable-thumb{
+  border-color: rgba(255,255,255,1);
+  outline: none;
+}</style></div><div class="spacing-8-8 pad-2-0-0-0 s c min-height-979 hf wf ct cl"><div class="hf ah cx bg-0-0-0-255 br-800-8000-0 fc-255-255-255-255 pad-48-0-0-0 s c wf ct cl"><div class="hf ah cx s e wf"><div class="hc ah cx spacing-16-16 s c wf ct cl"><div class="hc ah cx s e wc"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/" rel="noopener noreferrer"><svg width="97" viewBox="0 0 135 135"><path fill="#f9f9f9" d="m78.164 58.17c-1.7665 0.0017-3.4959-0.5066-4.9806-1.4639-4.1914-2.705-5.3629-8.256-2.615-12.38 1.7001-2.5358 4.557-4.0517 7.6099-4.038 1.7706 0 3.4921 0.50705 4.9785 1.466 4.1914 2.6988 5.3649 8.256 2.617 12.38-1.7008 2.5347-4.5575 4.0498-7.6099 4.036zm10.769 18.225c-0.17456-2.8e-4 -0.34909-5e-3 -0.52341-0.0143-5.0051-0.28011-8.8448-4.5124-8.5606-9.4357 0.28215-4.8967 4.5594-8.7037 9.5931-8.4154 2.3995 0.12206 4.6525 1.1912 6.2645 2.9728 1.6081 1.7541 2.4359 4.0854 2.294 6.4608-0.27397 4.727-4.2568 8.4318-9.0676 8.4318zm-10.677 18.272c-3.4173 0.0222-6.5569-1.8788-8.121-4.9172-1.0924-2.1095-1.2785-4.573-0.51523-6.8227 0.7578-2.2675 2.3937-4.1361 4.541-5.1871 1.2709-0.62837 2.6693-0.95577 4.0871-0.95686 3.4553 0 6.5692 1.8851 8.1231 4.9192 2.2572 4.4019 0.4498 9.7894-4.0278 12.006-1.2656 0.62768-2.6784 0.9589-4.0871 0.9589zm-21.437 0.045c-1.7652 1e-3 -3.4933-0.50682-4.9765-1.4639-2.0138-1.2819-3.4259-3.3213-3.9174-5.6573-0.49716-2.3235-0.02852-4.7493 1.2983-6.7205 1.6984-2.5368 4.555-4.0537 7.6078-4.0401 1.7726 0 3.4942 0.50705 4.9806 1.466 2.0117 1.2827 3.4228 3.3208 3.9153 5.6553 0.49798 2.3242 0.0293 4.7509-1.2983 6.7225-1.7001 2.5358-4.557 4.0517-7.6099 4.038zm-10.74-18.223c-0.17379 0-0.34758-6e-3 -0.52545-0.0143-5.001-0.28215-8.8427-4.5144-8.5585-9.4336 0.28624-4.9029 4.5594-8.7098 9.5931-8.4195 5.0071 0.2801 8.8448 4.5124 8.5606 9.4316-0.27397 4.7311-4.2568 8.4359-9.0697 8.4359zm10.673-18.27c-3.4594 0-6.5712-1.8871-8.1251-4.9192-2.2552-4.404-0.4498-9.7894 4.0278-12.01 1.2707-0.62675 2.6682-0.95407 4.085-0.95686 3.4553 0 6.5671 1.883 8.1231 4.9192 2.2552 4.4019 0.4498 9.7894-4.0278 12.008-1.2697 0.62777-2.6666 0.95582-4.083 0.9589z"></path><path fill="#f9f9f9" d="m72.756 31.708c-1.2231 7.4386-10.824 4.9555-10.671-0.59701 0.16765-2.8992 2.6906-5.1114 5.6369-4.9478 2.9483 0.16356 5.1993 2.6477 5.0337 5.5449z"></path><path fill="#f9f9f9" d="m71.106 10.048c-0.11654 2.0323-1.8851 3.5821-3.946 3.4676-2.065-0.11654-3.6393-1.8544-3.5248-3.8826 0.11858-2.0282 1.8871-3.578 3.9481-3.4635 2.065 0.1145 3.6393 1.8524 3.5228 3.8806z"></path><path fill="#f9f9f9" d="m95.02 29.336c-1.3961 2.0682-4.1892 2.6413-6.287 1.2901-2.0934-1.3308-2.6838-4.1224-1.3085-6.1869 1.3983-2.0685 4.1941-2.6391 6.2911-1.284 2.0915 1.3306 2.6802 4.1207 1.3044 6.1828z"></path><path fill="#f9f9f9" d="m102.11 14.031c-0.90491 1.337-2.7124 1.7057-4.0687 0.83009-1.3527-0.86164-1.7336-2.6664-0.84441-4.0012 0.90426-1.3377 2.7118-1.7074 4.0687-0.83214 1.3547 0.86102 1.7367 2.6676 0.84645 4.0033z"></path><path fill="#f9f9f9" d="m101.65 54.08c-2.6354 1.3044-5.8475 0.26579-7.1764-2.3308-1.3242-2.5995-0.25674-5.7796 2.3676-7.0537 2.6375-1.3085 5.8475-0.26579 7.1764 2.3267 1.3235 2.6002 0.25757 5.7804-2.3656 7.0578z"></path><path fill="#f9f9f9" d="m119.9 41.847c-1.8394 0.91475-4.0726 0.18943-5.0235-1.6316-0.9276-1.8199-0.18102-4.0467 1.6561-4.9397 1.8389-0.91506 4.0719-0.19072 5.0235 1.6295 0.93028 1.8156 0.18606 4.0278-1.6561 4.9417z"></path><path fill="#f9f9f9" d="m114.87 71.857c-2.5087-0.14108-4.4204-2.2511-4.2793-4.7127 0.14312-2.4657 2.2899-4.3488 4.7925-4.2098 2.5066 0.14312 4.4224 2.2531 4.2793 4.7168-0.14312 2.4596-2.2899 4.3467-4.7925 4.2057z"></path><path fill="#f9f9f9" d="m131.9 70.246c-1.6088-0.07383-2.8505-1.4421-2.7683-3.0505 0.10717-1.608 1.4953-2.8261 3.1036-2.7234 1.6082 0.07602 2.8485 1.4446 2.7663 3.0525-0.10824 1.6061-1.4952 2.822-3.1016 2.7193z"></path><path fill="#f9f9f9" d="m96.392 89.87c-2.4618-1.5656-3.1556-4.849-1.5375-7.2766 1.6173-2.4249 4.9315-3.1016 7.3972-1.513 2.4625 1.5649 3.1572 4.8484 1.5396 7.2766-1.6193 2.4289-4.9294 3.1036-7.3993 1.513z"></path><path fill="#f9f9f9" d="m116.29 99.293c-1.7244-1.0959-2.2099-3.3958-1.0754-5.0951 1.1514-1.7009 3.4508-2.1704 5.1768-1.057 1.7297 1.1143 2.2081 3.394 1.0795 5.091-1.151 1.7035-3.452 2.1757-5.1809 1.0632z"></path><path fill="#f9f9f9" d="m87.345 110.02c-1.126-2.2103-0.21913-4.9144 2.0119-5.9988 2.2429-1.1122 4.9724-0.2249 6.101 1.9791 1.1259 2.2097 0.21888 4.9132-2.0119 5.9967-2.2408 1.1102-4.9724 0.2249-6.101-1.9771z"></path><path fill="#f9f9f9" d="m97.281 123.72c-0.72932-1.4301-0.14316-3.1803 1.3003-3.8826 1.445-0.7193 3.1999-0.15038 3.9481 1.2799 0.72889 1.43 0.14162 3.1798-1.3024 3.8806-1.4439 0.71943-3.198 0.1514-3.946-1.2779z"></path><path fill="#424242" d="m61.86 103.29c0.1697-2.8992 2.6947-5.1114 5.6389-4.9478 2.9483 0.16357 5.2014 2.6477 5.0317 5.5469-0.16561 2.8951-2.6906 5.1114-5.6389 4.9458-2.9462-0.16357-5.1973-2.6477-5.0296-5.5449z"></path><path fill="#424242" d="m63.51 124.95c0.11858-2.0282 1.8851-3.578 3.946-3.4635 2.065 0.11245 3.6393 1.8544 3.5228 3.8806-0.1145 2.0303-1.8851 3.578-3.946 3.4655-2.065-0.11449-3.6393-1.8524-3.5228-3.8847z"></path><path fill="#424242" d="m39.983 105.66c1.3974-2.067 4.191-2.6376 6.287-1.284 2.0919 1.33 2.6822 4.1193 1.3085 6.1828-1.3976 2.068-4.1919 2.6394-6.2891 1.286-2.0932-1.33-2.6837-4.121-1.3085-6.1848z"></path><path fill="#424242" d="m32.887 120.97c0.90491-1.337 2.7124-1.7057 4.0687-0.83009 1.3555 0.87507 1.7338 2.6641 0.84236 4.0012-0.90361 1.3387-2.712 1.7085-4.0687 0.83214-1.3533-0.86238-1.7334-2.6686-0.84236-4.0033z"></path><path fill="#424242" d="m33.356 80.923c2.6354-1.3085 5.8475-0.26579 7.1764 2.3267 1.3244 2.6007 0.25725 5.782-2.3676 7.0578-2.6375 1.3044-5.8475 0.2617-7.1764-2.3288-1.3243-2.6001-0.257-5.7808 2.3676-7.0558z"></path><path fill="#424242" d="m15.105 93.155c1.8383-0.91654 4.0719-0.1929 5.0235 1.6275 0.93028 1.8135 0.1881 4.0278-1.6561 4.9417-1.8382 0.91605-4.0714 0.19135-5.0215-1.6295-0.92901-1.8204-0.18222-4.0487 1.6561-4.9417z"></path><path fill="#424242" d="m20.136 63.145c2.5066 0.13903 4.4203 2.249 4.2793 4.7127-0.14312 2.4617-2.2899 4.3447-4.7945 4.2057-2.5025-0.14312-4.4203-2.2511-4.2772-4.7127 0.14312-2.4657 2.2899-4.3488 4.7925-4.2057z"></path><path fill="#424242" d="m3.106 64.754c1.6066 0.07606 2.8461 1.4421 2.7663 3.0484-0.089961 1.5948-1.4823 2.8133-3.1016 2.7234-1.6074-0.076038-2.8473-1.4433-2.7663-3.0505 0.10825-1.6064 1.4948-2.8229 3.1016-2.7213z"></path><path fill="#424242" d="m38.61 45.131c2.4622 1.5647 3.1546 4.8491 1.5334 7.2746-1.6152 2.4289-4.9274 3.1057-7.3952 1.513-2.4639-1.5641-3.1581-4.8494-1.5375-7.2766 1.6173-2.4249 4.9294-3.1036 7.3993-1.5109z"></path><path fill="#424242" d="m18.712 35.703c1.7249 1.0944 2.2113 3.3938 1.0775 5.093-1.151 1.7041-3.4535 2.1748-5.1809 1.0591-1.7229-1.095-2.2082-3.3927-1.0754-5.091 1.1509-1.7028 3.4519-2.1734 5.1789-1.0591z"></path><path fill="#424242" d="m47.656 24.983c1.1269 2.2101 0.21856 4.9147-2.0139 5.9967-2.2388 1.1122-4.9683 0.2249-6.0969-1.9771-1.1265-2.2103-0.22066-4.9148 2.0098-6.0008 2.2408-1.1082 4.9724-0.22081 6.101 1.9832z"></path><path fill="#424242" d="m37.723 11.282c0.73195 1.4251 0.14721 3.165-1.3003 3.8826-1.4449 0.71881-3.1994 0.14884-3.946-1.2819-0.72805-1.4284-0.14298-3.1763 1.2983-3.8785 1.445-0.72096 3.2012-0.15283 3.9501 1.2779z"></path></svg></a></div><div class="hc ah cx spacing-4-4 s c wc ct cl"><a class="hc ah cx  fc-255-255-255-255-hv fc-179-229-252-255 s e wc ccx ccy lnk" href="https://volcyada.com/" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-48 w7 s e wc"><div class="s t wf hf">VOLCY</div></div></a><div class="hc ah cx font-size-24 fc-158-158-158-255 s e wc"><div class="s t wf hf">10 delegations</div></div><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx  fc-179-229-252-255-hv s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2/stake" rel="noopener noreferrer"><div class="hc ah cx font-size-48 s e wc"><div class="s t wf hf">243,491</div></div></a></s><div class="hc cptr font-size-48  fc-233-30-99-255-hv s e wc"><div class="s t wf hf"> ₳</div></div></div><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx av at p-2 spacing-2-2 we width-px-64 s c ct cl"><div class="hc ah cx font-size-9 w5 fc-158-158-158-255 s e wc"><div class="s t wf hf">SATURATION</div></div><div class="hc ah cx font-size-11 w7 fc-255-255-255-255 s e wc"><div class="s t wf hf">0.4%</div></div></div></s><s class="s e ctr ccy accx"><div class="hc ah cx av at p-2 spacing-2-2 we width-px-64 s c ct cl"><div class="hc ah cx font-size-9 w5 fc-158-158-158-255 s e wc"><div class="s t wf hf">MARGIN</div></div><div class="hc ah cx font-size-11 w7 fc-255-255-255-255 s e wc"><div class="s t wf hf">1%</div></div></div></s><s class="s e ctr ccy accx"><div class="hc ah cx av at p-2 spacing-2-2 we width-px-64 s c ct cl"><div class="hc ah cx font-size-9 w5 fc-158-158-158-255 s e wc"><div class="s t wf hf">PLEDGE</div></div><div class="hc ah cx font-size-11 w7 fc-255-255-255-255 s e wc"><div class="s t wf hf">30K ₳</div></div></div></s><s class="s e ctr ccy accx"><div class="hc ah cx av at p-2 spacing-2-2 we width-px-64 s c ct cl"><div class="hc ah cx font-size-9 w5 fc-158-158-158-255 s e wc"><div class="s t wf hf">FIXED COST</div></div><div class="hc ah cx font-size-11 w7 fc-255-255-255-255 s e wc"><div class="s t wf hf">340 ₳</div></div></div></s></div></div><div class="hc spacing-384-384 s r wf cl ccy"><div class="hc ah cx font-size-12 fc-158-158-158-255 cptr av at tr s e wf"><div class="s t wf hf">UPDATES</div></div><s class="s e ctr ccy accx"><div class="hc ah cx spacing-2-2 s c wc ct cl"><div class="hc ah cx font-size-12 fc-158-158-158-255 cptr av at tc s e wc"><div class="s t wf hf">BLOCKS</div></div><div class="hc ah cx font-size-12 w5 s e wc"><div class="s t wf hf">1</div></div></div></s><div class="hc ah cx font-size-12 fc-158-158-158-255 cptr av at tl s e wf"><div class="s t wf hf">STAKES</div></div></div><div class="hc ah cx s c wc ct cl"><label class="hc s c wc" aria-live="polite"><div class="we width-px-480 he height-px-20px s r cl ccy"><input class="input[type=&quot;range&quot;].thmb-12px-12px::-moz-range-thumb input[type=&quot;range&quot;].thmb-12px-12px::-webkit-slider-thumb input[type=&quot;range&quot;].thmb-12px-12px::-ms-thumb we width-px-480 he height-px-20px s e thmb-12px-12px ui-slide-bar focusable-parent" aria-label="Minimum ADA threshold" type="range" step="1" min="0" max="6"><s class="s e ctr ccy accx"><div class="he height-px-20px we width-px-480 ah cx s e" id="elm-ui-slider"><div class="nb e bh"><div class="hc ah cx s r wf mv-0-2040-0 cl ccy"><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div><div class="he height-px-1px bg-66-66-66-255 s e wf"></div><div class="we width-px-4 he height-px-4px br-2 bg-66-66-66-255 s e"></div></div></div><div class="nb e bh"><div class="hf av cy s r wf cl ccy"><div class="hc s e wfp width-fill-0"></div><div class="av cy we width-px-12 he height-px-12px br-6 bg-66-66-66-255 s e focusable-thumb"></div><div class="hc s e wfp width-fill-10000"></div></div></div></div></s></div></label></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 284</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">3 days left</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-08-15 06:51:45 UTC"><div class="s t wf hf">1 day ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxf9h8xxstxcuwvkx5lrxd7xalaveghtxaeg0fqwtyxstfsdnuy63" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxf9h8xxstxcuwvkx5lrxd7xalaveghtxaeg0fqwtyxstfsdnuy63" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+233</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxf9h8xxstxcuwvkx5lrxd7xalaveghtxaeg0fqwtyxstfsdnuy63" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1uxf9h8</div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 276</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-07-06 07:19:45 UTC"><div class="s t wf hf">1 month ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uyjqy237yxvedye2a5t2w8ncf0rnfvaes7adevx9ngg0rsgj67g04" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uyjqy237yxvedye2a5t2w8ncf0rnfvaes7adevx9ngg0rsgj67g04" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+3,402</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uyjqy237yxvedye2a5t2w8ncf0rnfvaes7adevx9ngg0rsgj67g04" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1uyjqy2</div></div></a><div class="hc ah cx fc-158-158-158-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">↳ 3,408</div></div></s><div class="hc font-size-12 s e wc"><div class="s t wf hf"> ₳</div></div></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 260</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-04-19 22:19:33 UTC"><div class="s t wf hf">4 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">1%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx s c wc ct cl"><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">28,000 ₳</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">↓</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">30,000 ₳</div></div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 254</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-17 21:30:45 UTC"><div class="s t wf hf">5 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9nu4pt0uv9ttt8d4g5m3n9k2jfcd3ktmhajn78k5wgmg0c8wldf9" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9nu4pt0uv9ttt8d4g5m3n9k2jfcd3ktmhajn78k5wgmg0c8wldf9" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-213-0-0-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">-10,106</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9nu4pt0uv9ttt8d4g5m3n9k2jfcd3ktmhajn78k5wgmg0c8wldf9" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1u9nu4p</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/ca4d7a55367b654e7159ae78f3dbe6fd0908c3a1bb236ce231b3a266" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-255-235-59-255 s e wc "><div class="s t wf hf">KRONO</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-17 20:58:23 UTC"><div class="s t wf hf">5 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">1%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx s c wc ct cl"><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">30,000 ₳</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">↓</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">28,000 ₳</div></div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-17 20:39:13 UTC"><div class="s t wf hf">5 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">3% → 1%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx s c wc ct cl"><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">25,000 ₳</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">↓</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">30,000 ₳</div></div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 250</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-01 04:49:06 UTC"><div class="s t wf hf">6 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgmcsfkfjuth00feq5awzs6wzk07d8r9zw8nzcj25zxqsgx8xzmy" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgmcsfkfjuth00feq5awzs6wzk07d8r9zw8nzcj25zxqsgx8xzmy" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+79,172</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgmcsfkfjuth00feq5awzs6wzk07d8r9zw8nzcj25zxqsgx8xzmy" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1uxgmcs</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/6a4a39566f5c45f0f6de34ef5e674b892e517ddeebd4eafcfd8583ef" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-178-223-219-255 s e wc "><div class="s t wf hf">VEGAS</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-01 04:46:55 UTC"><div class="s t wf hf">6 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+44,168</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1uxgdec</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/6749c8ed350238d3673f2389491a46e8a9a260837c5630d775078aaa" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-255-236-179-255 s e wc "><div class="s t wf hf">ANQA</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-03-01 04:42:19 UTC"><div class="s t wf hf">6 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u927kmzymsmhuqjpzpg9t2hxyyupxtsst49j7vu9zhrfkxczqp2y0" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u927kmzymsmhuqjpzpg9t2hxyyupxtsst49j7vu9zhrfkxczqp2y0" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+73,599</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u927kmzymsmhuqjpzpg9t2hxyyupxtsst49j7vu9zhrfkxczqp2y0" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1u927km</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/6749c8ed350238d3673f2389491a46e8a9a260837c5630d775078aaa" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-255-236-179-255 s e wc "><div class="s t wf hf">ANQA</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 245</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-02-04 20:22:09 UTC"><div class="s t wf hf">6 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u86w2e5uugfgxmavdum5yxe5nxmwd367qckfdae93cg9w5s4zgtxe" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u86w2e5uugfgxmavdum5yxe5nxmwd367qckfdae93cg9w5s4zgtxe" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+14,103</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u86w2e5uugfgxmavdum5yxe5nxmwd367qckfdae93cg9w5s4zgtxe" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1u86w2e</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/683e89fa1bcde139504b11fbfd914f8ebe9b8db2678b3da0abdcb2f1" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-178-235-242-255 s e wc "><div class="s t wf hf">POA</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 240</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2021-01-10 03:18:28 UTC"><div class="s t wf hf">7 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-213-0-0-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">-13,429</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1uxgdecceps3ug37vt4re4y4yxsjekd0fm57pydu337y0q2sy3y6ps" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1uxgdec</div></div></a><div class="hc ah cx s r wc cl ccy"><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></s><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf"> → </div></div></s><s class="s e ctr ccy accx"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/6749c8ed350238d3673f2389491a46e8a9a260837c5630d775078aaa" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-255-236-179-255 s e wc "><div class="s t wf hf">ANQA</div></div></a></s></div></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 231</div></div><div class="hc ah cx font-size-12 fc-179-229-252-255 s e wc"><div class="s t wf hf">1 block</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-11-24 18:25:03 UTC"><div class="s t wf hf">9 months ago</div></div><div class="hc ah cx pad-0-0-8-0 spacing-8-8 s c wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="bg-3-169-244-255 font-size-11 p-16 spacing-2-2 ah cx br-4 s c min-height-1 hc min-width-1 wc ct cl"><s class="s e ctr accy"><div class="hc font-size-13 w7 ah cx av cy s e wc"><div class="s t wf hf">VOLCY</div></div></s><s class="s e ctr accy"><div class="hc ah cx av cy w5 s r wc cl ccy"><div class="hc s e wc"><div class="s t wf hf">200,001</div></div><div class="hc font-size-11 s e wc"><div class="s t wf hf"> ₳</div></div></div></s><s class="s e ctr accy"><div class="hc ah cx av cy w5 font-size-9 s r wc cl ccy"><div class="hc s e wc"><div class="s t wf hf">fees: 1.4</div></div><div class="hc font-size-9 s e wc"><div class="s t wf hf"> ₳</div></div></div></s><s class="s e ctr accy"><div class="hc font-size-9 ah cx av cy s e wc"><div class="s t wf hf">3 tx</div></div></s></div></a></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 227</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-11-02 07:09:31 UTC"><div class="s t wf hf">10 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">1% → 3%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">25,000 ₳</div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 213</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-08-28 10:02:17 UTC"><div class="s t wf hf">12 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">3% → 1%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">25,000 ₳</div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 212</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-08-22 11:46:56 UTC"><div class="s t wf hf">12 months ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u823y3vavy7wfvk2qq6wq5syut4m2ru062sgd4qesc9q3cgzg5rk0" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u823y3vavy7wfvk2qq6wq5syut4m2ru062sgd4qesc9q3cgzg5rk0" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+78,307</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u823y3vavy7wfvk2qq6wq5syut4m2ru062sgd4qesc9q3cgzg5rk0" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1u823y3</div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 211</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-08-14 20:07:26 UTC"><div class="s t wf hf">1 year ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">3%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx s c wc ct cl"><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">30,000 ₳</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">↓</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">25,000 ₳</div></div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 209</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-08-04 19:38:31 UTC"><div class="s t wf hf">1 year ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">3%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">345 ₳ → 340 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx s c wc ct cl"><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">1,600 ₳</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">↓</div></div><div class="hc ah cx font-size-16 s e wc"><div class="s t wf hf">30,000 ₳</div></div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx pad-0-0-8-0 spacing-4-4 s c wc ct cl"><div class="hc ah cx font-size-16 fc-255-255-255-255 cptr s e wc"><div class="s t wf hf">Epoch 208</div></div></div><div class="hc ah cx font-size-16 fc-66-66-66-255 s e wc"><div class="s t wf hf">▲</div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-12px s e"></div></s><div class="hc s e wf"></div></div><div class="hc ah cx s c wf ct cl"><div class="hc ah cx s c wf ct cl"><div class="hc ah cx font-size-11 fc-158-158-158-255 p-8 s e wc" title="2020-08-03 07:35:51 UTC"><div class="s t wf hf">1 year ago</div></div><div class="ah cx we width-px-16 he height-px-16px br-8 bg-66-66-66-255 s e"></div><div class="ah cx hc spacing-16-16 s r wf cl ccy"><div class="spacing-16-16 s e wf"><div class="spacing-16-16 s r cl ccy wrp" style="margin: -8px; width: calc(100% + 16px); height: calc(100% + 16px);"><u class="s e ctr ccy acr"><a class="hc ah ar s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc p-4 spacing-2-2 fc-255-255-255-255 s c min-width-130 wc ct cl"><div class="hc ah cx font-size-11 w7 fc-179-229-252-255 s e wc"><div class="s t wf hf">NEW</div></div><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc"><div class="s t wf hf">VOLCY</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">margin</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">3%</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">epoch cost</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">345 ₳</div></div><div class="hc ah cx font-size-11 fc-158-158-158-255 s e wc"><div class="s t wf hf">pledge</div></div><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">1,600 ₳</div></div></div></a></u></div></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 hf s e"></div></s><div class="spacing-32-32 s e wf"><div class="spacing-32-32 s r cl ccy wrp" style="margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px);"><div class="ah al p-4 spacing-2-2 hf av at s c min-width-130 wc ct cl"><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9xhp3ygjfxg3t8j3dst5y2r5y6f84q0cmfrz7yknr8y9rcc8lapn" rel="noopener noreferrer" target="_blank"></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9xhp3ygjfxg3t8j3dst5y2r5y6f84q0cmfrz7yknr8y9rcc8lapn" rel="noopener noreferrer" target="_blank"><div class="hc ah cx w5 fc-255-255-255-255 s r wc cl ccy"><s class="s e ctr ccy accx"><div class="hc ah cx font-size-14 s e wc"><div class="s t wf hf">+15,333</div></div></s><div class="hc font-size-14 s e wc"><div class="s t wf hf"> ₳</div></div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/stake1u9xhp3ygjfxg3t8j3dst5y2r5y6f84q0cmfrz7yknr8y9rcc8lapn" rel="noopener noreferrer" target="_blank"><div class="hc ah cx font-size-12 fc-158-158-158-255 s e wc"><div class="s t wf hf">stake1u9xhp3</div></div></a><a class="hc ah cx s e wc ccx ccy lnk" href="https://pool.pm/e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2" rel="noopener noreferrer"><div class="hc ah cx font-size-14 w5 fc-179-229-252-255 s e wc "><div class="s t wf hf">VOLCY</div></div></a></div></div></div></div><div class="hc ah cx s r wf cl ccy"><div class="hc s e wf"></div><s class="s e ctr ccy accx"><div class="ah cx bg-66-66-66-255 we width-px-2 he height-px-16px s e"></div></s><div class="hc s e wf"></div></div></div></div></div></div></div><a class="hc ah cx font-size-12 pad-32-0-8-0 fc-158-158-158-255 s e wc ccx ccy lnk" href="https://github.com/SmaugPool/pool.pm" rel="noopener noreferrer"><div class="s t wf hf">pool.pm©2021</div></a><div class="nb e fr"><a class="hc av at ah al we width-px-300 p-4 s e ccx ccy lnk" href="https://pool.pm/abacadaba9f12a8b5382fc370e4e7e69421fb59831bb4ecca3a11d9b" rel="noopener noreferrer"><div class="ah cx s e wf ic"><img class="s e wf" src="./VOLCY_files/pool.pm.svg" alt="pool.pm"></div></a></div><div class="nb e fr"><div class="hc av at ah ar p-4 spacing-4-4 s r wc cl ccy"><a class="bg-156-39-176-255 av at we width-px-48 he height-px-48px cptr br-24 box-0px765px1530px0px0-0-0-82  box-0px0px0px0px255-255-255-255-act s e ccx ccy lnk" href="https://pool.pm/search/" rel="noopener noreferrer" title="Search"><div class="hc ah cx av cy s e wc"><svg viewBox="0 0 24 24" height="32" width="32"><g fill="currentColor"><path d="M0 0h24v24H0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></g></svg></div></a><div class="hc spacing-4-4 s c wc ct cl"><div class="bg-233-30-99-255 we width-px-48 he height-px-48px cptr br-24 box-0px765px1530px0px0-0-0-82  box-0px0px0px0px255-255-255-255-act s e" title="Menu"><div class="hc ah cx av cy s e wc tfrm-0-0-0-255-255-255-0-0-255-0" style="transition: transform 100ms ease 0s;"><svg viewBox="0 0 24 24" height="32" width="32"><g fill="currentColor"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></g></svg></div></div><a class="bg-233-30-99-255 av at we width-px-48 he height-px-48px cptr br-24 box-0px765px1530px0px0-0-0-82  box-0px0px0px0px255-255-255-255-act s e ccx ccy lnk" href="https://twitter.com/pool_pm" rel="noopener noreferrer" target="_blank" title="Twitter"><div class="hc ah cx av cy s e wc"><div class="we width-px-32 he height-px-32px s e"><svg enable-background="new 0 0 400 400" version="1.1" viewBox="0 0 24 24"><style> .st0{fill:#000000;} .st1{fill:#FFFFFF;} </style><g id="Logo__x2014__FIXED" transform="matrix(.10217 0 0 .10217 -9.1648 -9.4559)" stroke-width="9.7875"><path class="st1" d="m163.4 305.5c88.7 0 137.2-73.5 137.2-137.2 0-2.1 0-4.2-0.1-6.2 9.4-6.8 17.6-15.3 24.1-25-8.6 3.8-17.9 6.4-27.7 7.6 10-6 17.6-15.4 21.2-26.7-9.3 5.5-19.6 9.5-30.6 11.7-8.8-9.4-21.3-15.2-35.2-15.2-26.6 0-48.2 21.6-48.2 48.2 0 3.8 0.4 7.5 1.3 11-40.1-2-75.6-21.2-99.4-50.4-4.1 7.1-6.5 15.4-6.5 24.2 0 16.7 8.5 31.5 21.5 40.1-7.9-0.2-15.3-2.4-21.8-6v0.6c0 23.4 16.6 42.8 38.7 47.3-4 1.1-8.3 1.7-12.7 1.7-3.1 0-6.1-0.3-9.1-0.9 6.1 19.2 23.9 33.1 45 33.5-16.5 12.9-37.3 20.6-59.9 20.6-3.9 0-7.7-0.2-11.5-0.7 21.1 13.8 46.5 21.8 73.7 21.8" fill="#fff" stroke-width="9.7875"></path></g></svg></div></div></a></div></div></div></div></div></div>
+  
+
+</body></html>
