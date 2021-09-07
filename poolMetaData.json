@@ -4,3 +4,58 @@
 "ticker": "VOLCY",
 "homepage": "https://volcyada.com"
 }
+{
+    "how-to-implement": "in your meta.json - define *extended* with url to this (json) file - https://raw.githubusercontent.com/cardanians/adapools.org/master/example-meta.json",
+    "info": {
+        "url_png_icon_64x64": "http(s) url to pool icon; not animated; max 40kb",
+        "url_png_logo": "http(s) url to pool logo; not animated; max 50kb",
+        "location": "Montreal,Canada",
+        "social": {
+            "twitter_handle": "https://twitter.com/Gvolcy",
+            "telegram_handle": "https://t.me/volcy",
+        },
+        "company": {
+            "name": "Greg",
+            "city": "Montreal",
+            "country": "Canada",
+        },
+        "about": {
+            "Haiti, my parents’ country of origin, is the poorest country in the Western Hemisphere. Poverty in Haiti is a long lasting issue that affects the residents on a daily basis playing a significant role in their everyday lives. Issues including, housing, nutrition, education, healthcare, infant mortality rates, and the environmental factors are very common amongst the poorest communities in the nation. As my short term goal, I have decided to provide 45% of  my stake reward to kids in Haiti for nutrition  and education. As a long term objective, I would like introduce the Cardano technology to young Haitians through education in computer science, technology, and cryptocurrency. The Cardano community believes in helping than less fortunates, and I believe we all will stand together to bring help to the poor children in Haiti.
+It is not a job that can be solved alone; I need your help to make this happen."
+        }
+    },
+    "my-pool-ids": {
+        "1": "e3f8a83cefed03fe4ebdc4f50f3cdd880a7c2fd0b2ce7ff9da9cdce2",
+    },
+    "telegram-admin-handle": {
+        "0": "https://t.me/volcy"
+    },
+"adapools_ext": {
+  "prometheus": {
+    "0": {
+        "name": "relaynode1.volcyada.com",
+        "type": "relay",
+        "key": "d60bcd1232d18ccdd71d230fb75b5f97"
+    },
+    "1": {
+        "name": "relaynode2.volcyada.com",
+        "type": "relay",
+        "key": "e9bc7f8c43a2fc983f30a56bb0b6fadb"
+    },
+    "2": {
+        "name": "relaynode3.volcyada.com",
+        "type": "relay",
+        "key": "7eedeba6201ee974e81bac07064fc487"
+            },
+    "3": {
+        "name": "relaynode4.volcyada.com",
+        "type": "relay",
+        "key": "0d7d7824917de921ef2eacf81e7f0c94"
+    },
+    "4": {
+        "name": "relaynode5.volcyada.com",
+        "type": "relay",
+        "key": "e4158504b9b0508082f358acc75f7e74"
+    }
+  }
+} 
